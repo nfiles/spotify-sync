@@ -16,7 +16,7 @@ import { CounterComponent } from './components/counter/counter.component';
         NavMenuComponent,
         CounterComponent,
         FetchDataComponent,
-        HomeComponent
+        HomeComponent,
     ],
     imports: [
         CommonModule,
@@ -27,9 +27,8 @@ import { CounterComponent } from './components/counter/counter.component';
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
-            { path: '**', redirectTo: 'home' }
-        ])
-    ]
+            { path: '**', redirectTo: 'home' },
+        ]),
+    ],
 })
-export class AppModuleShared {
-}
+export class AppModuleShared {}
