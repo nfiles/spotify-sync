@@ -1,5 +1,3 @@
 {
-  "editor.formatOnSave": true,
   "html.format.wrapAttributes": "force-aligned"
-  //   "html.format.wrapAttributes": "auto"
 }
