@@ -1,0 +1,4 @@
+<div *ngIf="!err">
+    Authorizing...
+</div>
+<pre *ngIf="err">{{ err | json:2 }}</pre>

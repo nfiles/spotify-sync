@@ -11,7 +11,15 @@
                 <span class='icon-bar'></span>
             </button>
             <a class='navbar-brand'
-               [routerLink]="['/home']">Spotify Sync</a>
+               [routerLink]="['/home']">
+                Spotify Sync
+                <span *ngIf="spotifySync.isAuthorized()">
+                    (authorized!)
+                </span>
+                <span *ngIf="!spotifySync.isAuthorized()">
+                    (unauthorized...)
+                </span>
+            </a>
         </div>
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse'>
@@ -19,6 +27,11 @@
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/home']">
                         <span class='glyphicon glyphicon-home'></span> Home
+                    </a>
+                </li>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/sync']">
+                        <span class='glyphicon glyphicon-music'></span> Sync
                     </a>
                 </li>
             </ul>

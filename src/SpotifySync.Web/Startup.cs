@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SpotifySync.Web.Models;
 
 namespace SpotifySync.Web
 {
@@ -19,29 +20,35 @@ namespace SpotifySync.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services
-                .AddAuthentication(options =>
-                {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                })
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/signin";
-                    options.LogoutPath = "/signout";
-                })
-                .AddSpotify(config =>
-                {
-                    config.ClientId = Configuration.GetValue<string>("ClientId");
-                    config.ClientSecret = Configuration.GetValue<string>("ClientSecret");
+            services.Configure<SpotifyConfig>(config =>
+            {
+                config.ClientId = Configuration.GetValue<string>("ClientId");
+                config.ClientSecret = Configuration.GetValue<string>("ClientSecret");
+            });
 
-                    config.Scope.Add("user-read-currently-playing");
-                    config.Scope.Add("user-modify-playback-state");
-                    config.Scope.Add("user-read-playback-state");
+            // services
+            //     .AddAuthentication(options =>
+            //     {
+            //         options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //     })
+            //     .AddCookie(options =>
+            //     {
+            //         options.LoginPath = "/signin";
+            //         options.LogoutPath = "/signout";
+            //     })
+            //     .AddSpotify(config =>
+            //     {
+            //         config.ClientId = Configuration.GetValue<string>("ClientId");
+            //         config.ClientSecret = Configuration.GetValue<string>("ClientSecret");
 
-                    config.SaveTokens = true;
+            //         config.Scope.Add("user-read-currently-playing");
+            //         config.Scope.Add("user-modify-playback-state");
+            //         config.Scope.Add("user-read-playback-state");
 
-                    config.Validate();
-                });
+            //         config.SaveTokens = true;
+
+            //         config.Validate();
+            //     });
 
             services.AddMvc();
         }
