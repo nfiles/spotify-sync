@@ -16,14 +16,14 @@ import {
 import { createServerRenderer, RenderResult } from 'aspnet-prerendering';
 import { AppModule } from './app/app.server.module';
 import {
-    SPOTIFY_API_CREDENTIALS,
-    SpotifyConfig,
+    SPOTIFY_API_KEYS,
+    SpotifyApiKeys,
 } from './app/services/spotify-sync.service';
 
 enableProdMode();
 
 export default createServerRenderer(params => {
-    const data: SpotifyConfig = params.data || {};
+    const data: SpotifyApiKeys = params.data || {};
     const providers = [
         {
             provide: INITIAL_CONFIG,
@@ -31,7 +31,7 @@ export default createServerRenderer(params => {
         },
         { provide: APP_BASE_HREF, useValue: params.baseUrl },
         { provide: 'BASE_URL', useValue: params.origin + params.baseUrl },
-        { provide: SPOTIFY_API_CREDENTIALS, useValue: data },
+        { provide: SPOTIFY_API_KEYS, useValue: data },
     ];
 
     return platformDynamicServer(providers)
@@ -55,7 +55,6 @@ export default createServerRenderer(params => {
                                 spotifyConfig: {
                                     clientId: data.clientId,
                                     clientSecret: data.clientSecret,
-                                    authToken: data.clientId,
                                 },
                             },
                         });

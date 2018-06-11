@@ -1,3 +1,17 @@
-<div>
+<h1 class="page-header">
     Spotify Sync
+</h1>
+
+<div *ngIf="isLoading">
+    Loading...
 </div>
+
+<ng-container *ngIf="!isLoading">
+    <div *ngIf="isSharing">
+        Hosting a session
+    </div>
+
+    <div *ngIf="!isSharing">
+        Listening to a session
+    </div>
+</ng-container>

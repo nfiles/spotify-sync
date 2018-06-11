@@ -3,17 +3,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppModuleShared } from './app.shared.module';
 import { AppComponent } from './components/app/app.component';
 import {
-    SPOTIFY_API_CREDENTIALS,
-    SpotifyConfig,
+    SPOTIFY_API_KEYS,
+    SpotifyApiKeys,
 } from './services/spotify-sync.service';
 
-declare const spotifyConfig: SpotifyConfig;
+declare const spotifyConfig: SpotifyApiKeys;
 
-export function getSpotifyConfig(): SpotifyConfig {
+export function getSpotifyConfig(): SpotifyApiKeys {
     try {
         return spotifyConfig || {};
     } catch (ex) {
-        return { authToken: '' };
+        return {};
     }
 }
 
@@ -21,7 +21,7 @@ export function getSpotifyConfig(): SpotifyConfig {
     bootstrap: [AppComponent],
     imports: [BrowserModule, AppModuleShared],
     providers: [
-        { provide: SPOTIFY_API_CREDENTIALS, useFactory: getSpotifyConfig },
+        { provide: SPOTIFY_API_KEYS, useFactory: getSpotifyConfig },
         { provide: 'BASE_URL', useFactory: getBaseUrl },
     ],
 })

@@ -20,7 +20,9 @@ export class SigninSpotifyComponent {
     ) {
         this._route.fragment.take(1).subscribe(
             fragment => {
-                const { err, state } = this._spotifySync.authorize(fragment);
+                const { err, state } = this._spotifySync.authorize(
+                    fragment || '',
+                );
                 if (err) {
                     this.err = err;
                     console.error(err);

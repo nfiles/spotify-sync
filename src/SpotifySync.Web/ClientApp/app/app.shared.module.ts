@@ -12,7 +12,6 @@ import { IsAuthorizedGuard } from './services/is-authorized.guard';
 import { SpotifySync } from './components/sync/sync.component';
 import {
     SpotifySyncService,
-    SpotifyConfig,
     SPOTIFY_REDIRECT_URI,
 } from './services/spotify-sync.service';
 import { SpotifyAuthContextService } from './services/spotify-auth-state.service';
@@ -38,7 +37,7 @@ export function getSpotifyRedirectUri() {
             { path: 'home', component: HomeComponent },
             { path: 'signin-spotify', component: SigninSpotifyComponent },
             {
-                path: 'sync',
+                path: 'sync/:sessionId',
                 component: SpotifySync,
                 canActivate: [IsAuthorizedGuard],
             },
