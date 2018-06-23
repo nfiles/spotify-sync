@@ -5,7 +5,7 @@ import { AppComponent } from './components/app/app.component';
 import {
     SPOTIFY_API_KEYS,
     SpotifyApiKeys,
-} from './services/spotify-sync.service';
+} from './services/spotify-api.service';
 
 declare const spotifyConfig: SpotifyApiKeys;
 

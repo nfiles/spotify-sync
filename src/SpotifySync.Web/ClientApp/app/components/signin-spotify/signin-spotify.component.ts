@@ -4,7 +4,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
-import { SpotifySyncService } from '../../services/spotify-sync.service';
+import { SpotifyApiService } from '../../services/spotify-api.service';
 
 @Component({
     selector: 'signin-spotify',
@@ -14,13 +14,13 @@ export class SigninSpotifyComponent {
     err: any;
 
     constructor(
-        private _spotifySync: SpotifySyncService,
+        private _spotifyApi: SpotifyApiService,
         private _router: Router,
         private _route: ActivatedRoute,
     ) {
         this._route.fragment.take(1).subscribe(
             fragment => {
-                const { err, state } = this._spotifySync.authorize(
+                const { err, state } = this._spotifyApi.authorize(
                     fragment || '',
                 );
                 if (err) {

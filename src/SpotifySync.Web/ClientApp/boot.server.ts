@@ -18,7 +18,7 @@ import { AppModule } from './app/app.server.module';
 import {
     SPOTIFY_API_KEYS,
     SpotifyApiKeys,
-} from './app/services/spotify-sync.service';
+} from './app/services/spotify-api.service';
 
 enableProdMode();
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SpotifySyncService } from '../../services/spotify-sync.service';
+import { SpotifyApiService } from '../../services/spotify-api.service';
 
 @Component({
     selector: 'nav-menu',
@@ -7,5 +7,7 @@ import { SpotifySyncService } from '../../services/spotify-sync.service';
     styleUrls: ['./navmenu.component.css'],
 })
 export class NavMenuComponent {
-    constructor(public spotifySync: SpotifySyncService) {}
+    constructor(public spotifyApi: SpotifyApiService) {}
+
+    logout() {}
 }

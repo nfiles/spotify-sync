@@ -9,11 +9,11 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { SigninSpotifyComponent } from './components/signin-spotify/signin-spotify.component';
 import { IsAuthorizedGuard } from './services/is-authorized.guard';
-import { SpotifySync } from './components/sync/sync.component';
+import { SpotifySyncComponent } from './components/sync/sync.component';
 import {
-    SpotifySyncService,
+    SpotifyApiService,
     SPOTIFY_REDIRECT_URI,
-} from './services/spotify-sync.service';
+} from './services/spotify-api.service';
 import { SpotifyAuthContextService } from './services/spotify-auth-state.service';
 
 export function getSpotifyRedirectUri() {
@@ -26,7 +26,7 @@ export function getSpotifyRedirectUri() {
         NavMenuComponent,
         HomeComponent,
         SigninSpotifyComponent,
-        SpotifySync,
+        SpotifySyncComponent,
     ],
     imports: [
         CommonModule,
@@ -38,7 +38,7 @@ export function getSpotifyRedirectUri() {
             { path: 'signin-spotify', component: SigninSpotifyComponent },
             {
                 path: 'sync/:sessionId',
-                component: SpotifySync,
+                component: SpotifySyncComponent,
                 canActivate: [IsAuthorizedGuard],
             },
             { path: '**', redirectTo: 'home' },
@@ -46,7 +46,7 @@ export function getSpotifyRedirectUri() {
     ],
     providers: [
         IsAuthorizedGuard,
-        SpotifySyncService,
+        SpotifyApiService,
         SpotifyAuthContextService,
         { provide: SPOTIFY_REDIRECT_URI, useFactory: getSpotifyRedirectUri },
     ],

@@ -1,42 +1,50 @@
-<div class='main-nav'>
-    <div class='navbar navbar-inverse'>
-        <div class='navbar-header'>
-            <button type='button'
-                    class='navbar-toggle'
-                    data-toggle='collapse'
-                    data-target='.navbar-collapse'>
-                <span class='sr-only'>Toggle navigation</span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
+<div class="main-nav">
+    <div class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <button type="button"
+                    class="navbar-toggle"
+                    data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </button>
-            <a class='navbar-brand'
+            <a class="navbar-brand"
                [routerLink]="['/home']">
                 Spotify Sync
-                <span *ngIf="spotifySync.isAuthorized()">
+                <span *ngIf="spotifyApi.isAuthorized$ | async">
                     (authorized!)
                 </span>
-                <span *ngIf="!spotifySync.isAuthorized()">
+                <span *ngIf="!spotifyApi.isAuthorized$ | async">
                     (unauthorized...)
                 </span>
             </a>
         </div>
-        <div class='clearfix'></div>
-        <div class='navbar-collapse collapse'>
-            <ul class='nav navbar-nav'>
+        <div class="clearfix"></div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/home']">
-                        <span class='glyphicon glyphicon-home'></span> Home
+                        <span class="glyphicon glyphicon-home"></span> Home
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/sync/share']">
-                        <span class='glyphicon glyphicon-music'></span> Share
+                        <span class="glyphicon glyphicon-music"></span> Share
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/sync/abcdefg12345']">
-                        <span class='glyphicon glyphicon-music'></span> Listen
+                        <span class="glyphicon glyphicon-music"></span> Listen
+                    </a>
+                </li>
+                <li role="separator"
+                    class="divider"></li>
+                <li>
+                    <a role="button"
+                       (click)="logout()">
+                        <span class="glyphicon glyphicon-off"></span> Sign out
                     </a>
                 </li>
             </ul>

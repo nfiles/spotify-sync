@@ -1,10 +1,16 @@
 import { Inject, InjectionToken, Injectable, OnDestroy } from '@angular/core';
-import { Http, URLSearchParams } from '@angular/http';
+import { URLSearchParams } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/skip';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/publishReplay';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/operator/combineLatest';
 import * as SpotifyWebApi from 'spotify-web-api-js';
+import { Observable } from 'rxjs/Observable';
 
 export interface SpotifyApiKeys {
     clientId?: string;
@@ -44,7 +50,9 @@ export interface SpotifyTokenState extends SpotifyTokenResponse {
 }
 
 @Injectable()
-export class SpotifySyncService implements OnDestroy {
+export class SpotifyApiService implements OnDestroy {
+    public isAuthorized$: Observable<boolean>;
+
     private _authContext$ = new BehaviorSubject<SpotifyTokenState | null>(null);
     private _isDestroyed = new Subject<void>();
 
@@ -52,7 +60,6 @@ export class SpotifySyncService implements OnDestroy {
         @Inject(SPOTIFY_API_KEYS) private _apiCredentials: SpotifyApiKeys,
         @Inject(SPOTIFY_REDIRECT_URI) private _redirectUri: string,
         @Inject('BASE_URL') private _appBaseHref: string,
-        private _http: Http,
     ) {
         // strip trailing slash
         if (this._appBaseHref.charAt(this._appBaseHref.length - 1) === '/') {
@@ -61,7 +68,8 @@ export class SpotifySyncService implements OnDestroy {
 
         // load the current context from the cookie
         try {
-            this._authContext$.next(JSON.parse(document.cookie));
+            const ctx = JSON.parse(document.cookie);
+            this._authContext$.next(ctx);
         } catch (ex) {}
 
         this._authContext$
@@ -71,6 +79,13 @@ export class SpotifySyncService implements OnDestroy {
                 // write context changes to the cookie
                 document.cookie = JSON.stringify(ctx);
             });
+
+        const isAuthorized = this._authContext$
+            .map(_ctx => this.isAuthorized())
+            .distinctUntilChanged()
+            .publishReplay(1);
+        this.isAuthorized$ = isAuthorized;
+        isAuthorized.connect();
     }
 
     ngOnDestroy() {
@@ -84,17 +99,6 @@ export class SpotifySyncService implements OnDestroy {
 
         const expirationTimestamp = ctx.timestamp + ctx.expires_in * 1000;
         return expirationTimestamp > Date.now();
-    }
-
-    getApiClient() {
-        const ctx = this._authContext$.value;
-        const access_token = ctx && ctx.state;
-
-        if (!access_token) return null;
-
-        const api = new SpotifyWebApi();
-        api.setAccessToken(access_token);
-        return api;
     }
 
     getAuthorizationUrl(redirectUri: string) {
@@ -144,5 +148,23 @@ export class SpotifySyncService implements OnDestroy {
         });
 
         return { state: tokenResponse.state };
+    }
+
+    async getApiClient() {
+        const access_token = await this._authContext$
+            .filter(_ => this.isAuthorized())
+            .map(_ => {
+                const ctx = this._authContext$.value;
+                return ctx && ctx.access_token;
+            })
+            .take(1)
+            .toPromise();
+
+        if (!access_token)
+            throw new Error('[SpotifyApiService]: no access token found!');
+
+        const api = new SpotifyWebApi();
+        api.setAccessToken(access_token);
+        return api;
     }
 }

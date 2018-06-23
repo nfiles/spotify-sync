@@ -5,12 +5,12 @@ import {
     RouterStateSnapshot,
 } from '@angular/router';
 
-import { SpotifySyncService } from './spotify-sync.service';
+import { SpotifyApiService } from './spotify-api.service';
 
 @Injectable()
 export class IsAuthorizedGuard implements CanActivate {
     constructor(
-        private _spotifyService: SpotifySyncService,
+        private _spotifyApi: SpotifyApiService,
         @Inject(PLATFORM_ID) private _platformId: any,
     ) {}
 
@@ -19,12 +19,12 @@ export class IsAuthorizedGuard implements CanActivate {
             // just allow everything through if we're doing server-side rendering
             // this will probably (?) change later
             this._platformId === 'server' ||
-            this._spotifyService.isAuthorized()
+            this._spotifyApi.isAuthorized()
         ) {
             return true;
         }
 
-        const authUrl = this._spotifyService.getAuthorizationUrl(state.url);
+        const authUrl = this._spotifyApi.getAuthorizationUrl(state.url);
         window.location.href = authUrl;
 
         return false;

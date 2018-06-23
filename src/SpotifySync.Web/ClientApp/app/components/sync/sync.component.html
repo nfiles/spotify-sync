@@ -7,6 +7,27 @@
 </div>
 
 <ng-container *ngIf="!isLoading">
+    <dl *ngIf="result"
+        class="dl-horizontal">
+        <dt>is playing</dt>
+        <dd>{{ result.is_playing }}</dd>
+
+        <dt>track name</dt>
+        <dd>{{ result.item?.name }}</dd>
+
+        <dt>album name</dt>
+        <dd>{{ result.item?.album.name }}</dd>
+
+        <dt>album art</dt>
+        <dd>
+            <img class="img-responsive"
+                 [src]="result.item?.album.images[0].url"
+                 width="300px" />
+        </dd>
+    </dl>
+
+    <pre>{{ result | json:2 }}</pre>
+
     <div *ngIf="isSharing">
         Hosting a session
     </div>
