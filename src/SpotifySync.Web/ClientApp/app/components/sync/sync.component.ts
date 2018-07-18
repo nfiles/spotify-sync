@@ -1,14 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/takeUntil';
-import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/share';
+import 'rxjs/add/observable/interval';
 import { SpotifyApiService } from '../../services/spotify-api.service';
-
-export interface CurrentlyPlaying {
-    contextType: SpotifyApi.ContextObjectType;
-    name: string;
-}
 
 @Component({
     selector: 'spotify-sync',
@@ -17,9 +14,9 @@ export interface CurrentlyPlaying {
 export class SpotifySyncComponent implements OnDestroy {
     isLoading = true;
     isSharing = false;
+    playbackState$: Observable<SpotifyApi.CurrentPlaybackResponse>;
 
-    result: SpotifyApi.CurrentPlaybackResponse | null = null;
-
+    private readonly pollInterval = 2000;
     private _isDestroyed = new Subject<void>();
 
     constructor(
@@ -41,11 +38,11 @@ export class SpotifySyncComponent implements OnDestroy {
             this.isLoading = false;
         });
 
-        // is this too complicated? should the api client just return a promise with the api client?
-        this._spotifyApi
-            .getApiClient()
-            .then(api => api.getMyCurrentPlaybackState())
-            .then(result => (this.result = result));
+        this.playbackState$ = Observable.interval(this.pollInterval)
+            .takeUntil(this._isDestroyed)
+            .switchMap(() => this._spotifyApi.getApiClient())
+            .switchMap(api => api.getMyCurrentPlaybackState())
+            .share();
     }
 
     ngOnDestroy() {

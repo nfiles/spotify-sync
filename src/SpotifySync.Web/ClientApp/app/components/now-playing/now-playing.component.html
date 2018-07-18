@@ -1,0 +1,27 @@
+<dl *ngIf="state"
+    class="dl-horizontal">
+    <dt>is playing</dt>
+    <dd>
+        <i class="glyphicon"
+           [class.glyphicon-play]="state.is_playing"
+           [class.glyphicon-pause]="!state.is_playing"></i>
+        <input type="checkbox"
+               disabled
+               [checked]="state.is_playing">
+    </dd>
+
+    <dt>track name</dt>
+    <dd>{{ state.item?.name }}</dd>
+
+    <dt>album name</dt>
+    <dd>{{ state.item?.album.name }}</dd>
+
+    <dt>album art</dt>
+    <dd>
+        <img class="img-responsive"
+             [src]="state.item?.album.images[0].url"
+             width="300px" />
+    </dd>
+</dl>
+
+<pre>{{ state | json:2 }}</pre>

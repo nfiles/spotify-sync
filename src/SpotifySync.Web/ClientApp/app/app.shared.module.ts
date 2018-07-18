@@ -8,8 +8,9 @@ import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { SigninSpotifyComponent } from './components/signin-spotify/signin-spotify.component';
-import { IsAuthorizedGuard } from './services/is-authorized.guard';
 import { SpotifySyncComponent } from './components/sync/sync.component';
+import { NowPlayingComponent } from './components/now-playing/now-playing.component';
+import { IsAuthorizedGuard } from './services/is-authorized.guard';
 import {
     SpotifyApiService,
     SPOTIFY_REDIRECT_URI,
@@ -27,6 +28,7 @@ export function getSpotifyRedirectUri() {
         HomeComponent,
         SigninSpotifyComponent,
         SpotifySyncComponent,
+        NowPlayingComponent,
     ],
     imports: [
         CommonModule,
