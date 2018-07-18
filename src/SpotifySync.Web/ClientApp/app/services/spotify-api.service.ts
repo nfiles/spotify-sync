@@ -2,6 +2,7 @@ import { Inject, InjectionToken, Injectable, OnDestroy } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/map';

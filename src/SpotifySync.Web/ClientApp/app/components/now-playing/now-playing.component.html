@@ -10,11 +10,14 @@
                [checked]="state.is_playing">
     </dd>
 
-    <dt>track name</dt>
+    <dt>track</dt>
     <dd>{{ state.item?.name }}</dd>
 
-    <dt>album name</dt>
+    <dt>album</dt>
     <dd>{{ state.item?.album.name }}</dd>
+
+    <dt>artist</dt>
+    <dd>{{ state.item?.album.artists[0]?.name }}</dd>
 
     <dt>album art</dt>
     <dd>
