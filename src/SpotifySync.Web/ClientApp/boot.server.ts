@@ -54,7 +54,6 @@ export default createServerRenderer(params => {
                             globals: {
                                 spotifyConfig: {
                                     clientId: data.clientId,
-                                    clientSecret: data.clientSecret,
                                 },
                             },
                         });

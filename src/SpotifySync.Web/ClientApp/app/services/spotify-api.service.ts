@@ -15,7 +15,6 @@ import { Observable } from 'rxjs/Observable';
 
 export interface SpotifyApiKeys {
     clientId?: string;
-    clientSecret?: string;
 }
 
 export const SPOTIFY_API_KEYS = new InjectionToken<SpotifyApiKeys>(
