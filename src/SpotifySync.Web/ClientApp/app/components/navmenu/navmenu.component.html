@@ -14,10 +14,10 @@
                [routerLink]="['/home']">
                 Spotify Sync
                 <span *ngIf="spotifyApi.isAuthorized$ | async">
-                    (authorized!)
+                    (Connected to Spotify!)
                 </span>
                 <span *ngIf="!spotifyApi.isAuthorized$ | async">
-                    (unauthorized...)
+                    (Disconnected)
                 </span>
             </a>
         </div>
@@ -31,12 +31,12 @@
                 </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/sync/share']">
-                        <span class="glyphicon glyphicon-music"></span> Share
+                        <span class="glyphicon glyphicon-music"></span> Start a Session
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/sync/abcdefg12345']">
-                        <span class="glyphicon glyphicon-music"></span> Listen
+                        <span class="glyphicon glyphicon-music"></span> Join a Session
                     </a>
                 </li>
                 <li role="separator"
