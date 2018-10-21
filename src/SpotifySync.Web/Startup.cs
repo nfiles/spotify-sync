@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SpotifySync.Web.Models;
+using SpotifySync.Web.Services;
 
 namespace SpotifySync.Web
 {
@@ -50,6 +51,8 @@ namespace SpotifySync.Web
             //         config.Validate();
             //     });
 
+            services.AddSignalR();
+
             services.AddMvc();
         }
 
@@ -72,6 +75,11 @@ namespace SpotifySync.Web
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSignalR(builder =>
+            {
+                builder.MapHub<SyncHub>("/hub/sync");
+            });
 
             app.UseMvc(routes =>
             {

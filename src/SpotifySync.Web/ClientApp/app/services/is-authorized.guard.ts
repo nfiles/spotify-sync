@@ -11,7 +11,7 @@ import { SpotifyApiService } from './spotify-api.service';
 export class IsAuthorizedGuard implements CanActivate {
     constructor(
         private _spotifyApi: SpotifyApiService,
-        @Inject(PLATFORM_ID) private _platformId: any,
+        @Inject(PLATFORM_ID) private _platformId: Object,
     ) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

@@ -1,7 +1,5 @@
-import { Component, Injectable } from '@angular/core';
-
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 export interface SpotifyAuthContext {
@@ -13,15 +11,15 @@ export interface SpotifyAuthContext {
 
 @Injectable()
 export class SpotifyAuthContextService {
-    appSecret$: Observable<SpotifyAuthContext>;
+    context$: Observable<SpotifyAuthContext>;
 
-    private _appSecret = new ReplaySubject<SpotifyAuthContext>(1);
+    private _context = new ReplaySubject<SpotifyAuthContext>(1);
 
     constructor() {
-        this.appSecret$ = this._appSecret.asObservable();
+        this.context$ = this._context.asObservable();
     }
 
-    setAppSecret(appSecret: SpotifyAuthContext): void {
-        this._appSecret.next(appSecret);
+    setAppSecret(context: SpotifyAuthContext): void {
+        this._context.next(context);
     }
 }
