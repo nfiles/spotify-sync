@@ -4,3 +4,9 @@
         padding-top: 50px;
     }
 }
+
+.background {
+    background-image: url('./blur-classic-close-up-371836.jpg');
+    background-size: cover;
+    height: 100vh;
+}
