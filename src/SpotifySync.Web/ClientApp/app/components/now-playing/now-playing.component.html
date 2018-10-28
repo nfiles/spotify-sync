@@ -1,30 +1,31 @@
-<dl *ngIf="state"
-    class="dl-horizontal">
-    <dt>is playing</dt>
-    <dd>
-        <i class="glyphicon"
-           [class.glyphicon-play]="state.is_playing"
-           [class.glyphicon-pause]="!state.is_playing"></i>
-        <input type="checkbox"
-               disabled
-               [checked]="state.is_playing">
-    </dd>
+<div class= "clearfix"*ngIf="state">
+    <img class="img-responsive"
+         [src]="state.item?.album.images[0].url"
+         width="300px"
+         style="float: left; padding-right: 15px" />
+    <dl *ngIf="state"
+        class="dl-horizontal"
+        style="float: left; color: white; font-size: 16px">
+        
+        <dd style="color: white; font-size: 1.5em"*ngIf="state.is_playing"> Now Playing
+            <i class="glyphicon glyphicon-play"></i>
+            
+        </dd>
+        <dd style="color: white; font-size: 1.5em"*ngIf="!state.is_playing"> Paused
+            <i class="glyphicon glyphicon-pause"></i>
+        </dd>
+        <dt>Track</dt>
+        <dd>{{ state.item?.name }}</dd>
 
-    <dt>track</dt>
-    <dd>{{ state.item?.name }}</dd>
+        <dt>Album</dt>
+        <dd>{{ state.item?.album.name }}</dd>
 
-    <dt>album</dt>
-    <dd>{{ state.item?.album.name }}</dd>
+        <dt>Artist</dt>
+        <dd>{{ state.item?.album.artists[0]?.name }}</dd>
 
-    <dt>artist</dt>
-    <dd>{{ state.item?.album.artists[0]?.name }}</dd>
+    </dl>
 
-    <dt>album art</dt>
-    <dd>
-        <img class="img-responsive"
-             [src]="state.item?.album.images[0].url"
-             width="300px" />
-    </dd>
-</dl>
+</div>
 
-<pre>{{ state | json:2 }}</pre>
+<pre *ngIf="state">{{ state | json:2 }}</pre>
+<pre *ngIf="!state">Not Connected</pre>
