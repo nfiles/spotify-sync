@@ -1,19 +1,21 @@
-<div class= "clearfix"*ngIf="state">
-    <img class="img-responsive"
+<div class="clearfix"
+     *ngIf="state">
+    <img class="img-responsive album-art pull-left"
          [src]="state.item?.album.images[0].url"
-         width="300px"
-         style="float: left; padding-right: 15px" />
+         width="300px" />
     <dl *ngIf="state"
-        class="dl-horizontal"
-        style="float: left; color: white; font-size: 16px">
-        
-        <dd style="color: white; font-size: 1.5em"*ngIf="state.is_playing"> Now Playing
+        class="dl-horizontal info-small pull-left">
+
+        <dd *ngIf="state.is_playing"
+            class="info-large"> Now Playing
             <i class="glyphicon glyphicon-play"></i>
-            
         </dd>
-        <dd style="color: white; font-size: 1.5em"*ngIf="!state.is_playing"> Paused
+
+        <dd *ngIf="!state.is_playing"
+            class="info-large"> Paused
             <i class="glyphicon glyphicon-pause"></i>
         </dd>
+
         <dt>Track</dt>
         <dd>{{ state.item?.name }}</dd>
 
