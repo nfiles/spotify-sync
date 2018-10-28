@@ -1,5 +1,5 @@
-<h1 class="page-header">
-    Spotify Sync
+<h1 class="page-header" style="color: white">
+    SpotifySync
 </h1>
 
 <div *ngIf="isLoading">
@@ -8,12 +8,4 @@
 
 <ng-container *ngIf="!isLoading">
     <now-playing [state]="playbackState$ | async"></now-playing>
-
-    <div *ngIf="isSharing">
-        Hosting a session
-    </div>
-
-    <div *ngIf="!isSharing">
-        Listening to a session
-    </div>
 </ng-container>
