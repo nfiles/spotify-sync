@@ -1,4 +1,5 @@
-<h1 class="page-header" style="color: white">
+<h1 class="page-header"
+    style="color: white">
     SpotifySync
 </h1>
 
@@ -6,6 +7,9 @@
     Loading...
 </div>
 
-<ng-container *ngIf="!isLoading">
+<ng-container *ngIf="!isLoading && session">
+    <ng-container *ngIf="typeof session === 'string'">
+        Listening to '{{ session | uppercase }}'
+    </ng-container>
     <now-playing [state]="playbackState$ | async"></now-playing>
 </ng-container>

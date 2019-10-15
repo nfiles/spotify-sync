@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SpotifySync.Web.Hubs;
 using SpotifySync.Web.Models;
+using SpotifySync.Web.Services;
 
 namespace SpotifySync.Web
 {
@@ -51,6 +53,10 @@ namespace SpotifySync.Web
             //     });
 
             services.AddMvc();
+
+            services.AddSignalR();
+
+            services.AddSingleton<ISessionStore, SessionStore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,6 +78,11 @@ namespace SpotifySync.Web
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<SyncHub>("/hub/sync");
+            });
 
             app.UseMvc(routes =>
             {

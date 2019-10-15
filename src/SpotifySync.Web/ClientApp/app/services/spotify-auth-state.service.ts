@@ -1,13 +1,9 @@
-import { Component, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 export interface SpotifyAuthContext {
-    // client id?
-    // client secret?
-
     appSecret: string;
 }
 

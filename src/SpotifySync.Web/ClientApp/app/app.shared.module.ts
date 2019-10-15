@@ -16,6 +16,7 @@ import {
     SPOTIFY_REDIRECT_URI,
 } from './services/spotify-api.service';
 import { SpotifyAuthContextService } from './services/spotify-auth-state.service';
+import { SessionSyncService } from './services/session-sync.service';
 
 export function getSpotifyRedirectUri() {
     return '/signin-spotify';
@@ -50,6 +51,7 @@ export function getSpotifyRedirectUri() {
         IsAuthorizedGuard,
         SpotifyApiService,
         SpotifyAuthContextService,
+        SessionSyncService,
         { provide: SPOTIFY_REDIRECT_URI, useFactory: getSpotifyRedirectUri },
     ],
 })
