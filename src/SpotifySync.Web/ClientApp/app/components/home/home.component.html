@@ -1,14 +1,33 @@
 <h1 class="text-center title">
     GrooveSync
 </h1>
-<div class="text-center">
-    <button type="button"
-            class="btn btn-light btn-lg"
-            [routerLink]="['/sync/share']">Start a Session</button>
-    <button type="button"
-            class="btn btn-light btn-lg"
-            [routerLink]="['/sync/abcdefg12345']">Join a Session</button>
-    <button type="button"
-            class="btn btn-light btn-lg"
-            (click)="logout()">Log Out</button>
-</div>
+
+<form [formGroup]="form"
+      class="text-center">
+    <div class="col-sm-4">
+        <button type="button"
+                class="btn btn-light btn-lg btn-block"
+                [routerLink]="['/sync/share']">
+            Start a Session
+        </button>
+    </div>
+    <div class="col-sm-4">
+        <button type="button"
+                class="btn btn-light btn-lg btn-block"
+                [routerLink]="['/sync/' + (form.value.sessionId || '')]"
+                [disabled]="form.controls.sessionId.invalid">
+            Join a Session
+        </button>
+        <input type="text"
+               placeholder="ABC123"
+               formControlName="sessionId"
+               class="form-control" />
+    </div>
+    <div class="col-sm-4">
+        <button type="button"
+                class="btn btn-light btn-lg btn-block"
+                (click)="logout()">
+            Log Out
+        </button>
+    </div>
+</form>

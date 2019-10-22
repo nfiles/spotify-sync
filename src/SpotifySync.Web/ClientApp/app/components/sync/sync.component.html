@@ -7,9 +7,14 @@
     Loading...
 </div>
 
-<ng-container *ngIf="!isLoading && session">
-    <ng-container *ngIf="typeof session === 'string'">
+<div *ngIf="!isLoading && session"
+     style="color:white">
+    <ng-container *ngIf="isListening()">
         Listening to '{{ session | uppercase }}'
     </ng-container>
+    <ng-container *ngIf="isSharing()">
+        Sharing id: '{{ session.sessionId | uppercase }}'<br>
+        Private id: '{{ session.hostKey | uppercase }}'
+    </ng-container>
     <now-playing [state]="playbackState$ | async"></now-playing>
-</ng-container>
+</div>

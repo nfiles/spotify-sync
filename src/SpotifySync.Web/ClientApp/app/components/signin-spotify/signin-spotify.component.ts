@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
 import { SpotifyApiService } from '../../services/spotify-api.service';
 
